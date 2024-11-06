@@ -135,5 +135,23 @@ audio:not([controls]) {
             
         }
 
+        [Fact]
+        public async Task CssMin_Ensure_Spaces_Not_Stripped_From_Complex_Selectors()
+        {
+            //refer to this: https://github.com/Shazwazza/Smidge/issues/139
+            //The problem is stripping spaces which are followed by a colon - that's not OK this type of selector
+
+            var css = ".prose :where([class~=lead]):not(:where([class~=not-prose] *)){}";
+
+            var minifier = new CssMinifier();
+            using (var bc = BundleContext.CreateEmpty("1"))
+            {
+                var fileProcessContext = new FileProcessContext(css, Mock.Of<IWebFile>(), bc);
+                await minifier.ProcessAsync(fileProcessContext, ctx => Task.FromResult(0));
+
+                Assert.Equal(css, fileProcessContext.FileContent);
+            }
+        }
+
     }
 }

@@ -80,7 +80,6 @@ namespace Smidge.FileProcessors
                                 {
                                     case ' ':        //body.Replace("  ", String.Empty);
                                     case '{':        //body = body.Replace(" {", "{");
-                                    case ':':        //body = body.Replace(" {", "{");
                                     case '\n':       //body = body.Replace(" \n", "\n");
                                     case '\r':       //body = body.Replace(" \r", "\r");
                                     case '\t':       //body = body.Replace(" \t", "\t");
